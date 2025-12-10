@@ -1,4 +1,3 @@
-"""Пакет с реализацией бинарного дерева поиска."""
 
 from .tree import BinarySearchTree, TreeNode
 

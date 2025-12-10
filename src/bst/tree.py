@@ -20,14 +20,12 @@ class TreeNode(Generic[K, V]):
 
 
 class BinarySearchTree(Generic[K, V]):
-    """Простая реализация бинарного дерева поиска."""
 
     def __init__(self) -> None:
         self.root: Optional[TreeNode[K, V]] = None
         self._size = 0
 
     def insert(self, key: K, value: V) -> TreeNode[K, V]:
-        """Вставить пару ключ-значение. При совпадении ключа обновляет значение."""
         if self.root is None:
             self.root = TreeNode(key, value)
             self._size = 1
@@ -52,12 +50,10 @@ class BinarySearchTree(Generic[K, V]):
                 current = current.right
 
     def search(self, key: K) -> Optional[V]:
-        """Найти значение по ключу. Возвращает None, если узел не найден."""
         node = self._find_node(key)
         return node.value if node else None
 
     def delete(self, key: K) -> bool:
-        """Удалить узел по ключу. Возвращает True, если узел был удален."""
         node = self._find_node(key)
         if node is None:
             return False
@@ -67,17 +63,14 @@ class BinarySearchTree(Generic[K, V]):
         return True
 
     def height(self) -> int:
-        """Высота дерева (0 для пустого)."""
         return self._height(self.root)
 
     def is_balanced(self) -> bool:
-        """Проверка, что дерево сбалансировано (разница высот поддеревьев <= 1)."""
         return self._is_balanced(self.root)[0]
 
     def __len__(self) -> int:
         return self._size
 
-    # Вспомогательные методы
     def _find_node(self, key: K) -> Optional[TreeNode[K, V]]:
         current = self.root
         while current:
@@ -87,7 +80,6 @@ class BinarySearchTree(Generic[K, V]):
         return None
 
     def _transplant(self, u: TreeNode[K, V], v: Optional[TreeNode[K, V]]) -> None:
-        """Заменить поддерево u на v, корректируя ссылки родителей."""
         if u.parent is None:
             self.root = v
         elif u == u.parent.left:
